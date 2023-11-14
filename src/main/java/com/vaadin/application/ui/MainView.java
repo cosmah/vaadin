@@ -35,16 +35,9 @@ public class MainView extends VerticalLayout {
 
         //Creates a Div that wraps the grid and the form, gives it a CSS class name, and makes
         //it full size
-        //Div content = new Div(grid, form);
-
-        // Create a HorizontalLayout to hold the form and grid
-        HorizontalLayout content = new HorizontalLayout(grid,form );
+        Div content = new Div(grid, form);
+        content.addClassName("content");
         content.setSizeFull();
-        content.expand(grid);
-
-        // Set width of the form
-        form.setWidth("300px"); // Adjust width as needed
-
 
 
         // Adds the content layout to the main layout
