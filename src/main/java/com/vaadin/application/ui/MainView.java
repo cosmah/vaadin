@@ -1,5 +1,6 @@
 package com.vaadin.application.ui;
 
+import com.vaadin.application.backend.entity.Company;
 import com.vaadin.application.backend.entity.Contact;
 import com.vaadin.application.backend.service.ContactService;
 import com.vaadin.flow.component.grid.Grid;
@@ -24,7 +25,15 @@ public class MainView extends HorizontalLayout {
     private void configureGrid() {
         grid.addClassName("contact-grid");
         grid.setSizeFull();
+        grid.removeColumnByKey("company");
         grid.setColumns("firstName", "lastName", "email", "status");
+        grid.addColumn(contact -> {
+            Company company = contact.getCompany();
+            return company == null ? "-" : company.getName();
+        }).setHeader("Company");
+
+        //column sizing to aouto
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private void updateList() {
