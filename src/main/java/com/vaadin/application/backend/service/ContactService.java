@@ -22,13 +22,24 @@ public class ContactService {
     public ContactService(ContactRepository contactRepository,
                           CompanyRepository
                                   companyRepository) {
+
         this.contactRepository = contactRepository;
         this.companyRepository = companyRepository;
     }
     public List<Contact> findAll() {
+
         return contactRepository.findAll();
     }
+
+    public List<Contact> findAll(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return contactRepository.findAll();
+        } else {
+            return contactRepository.search(stringFilter);
+        }
+    }
     public long count() {
+
         return contactRepository.count();
     }
     public void delete(Contact contact) {
