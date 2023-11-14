@@ -2,6 +2,7 @@ package com.vaadin.application.ui;
 
 import com.vaadin.application.backend.entity.Company;
 import com.vaadin.application.backend.entity.Contact;
+import com.vaadin.application.backend.service.CompanyService;
 import com.vaadin.application.backend.service.ContactService;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
@@ -23,7 +24,7 @@ public class MainView extends VerticalLayout {
 
     //import contact form
     private ContactForm form;
-    public MainView(ContactService contactService) {
+    public MainView(ContactService contactService, CompanyService companyservice) {
         this.contactService = contactService;
         addClassName("list-view");
         setSizeFull();
@@ -31,7 +32,7 @@ public class MainView extends VerticalLayout {
         configureGrid();
 
         //call form constructor
-        form = new ContactForm();
+        form = new ContactForm(companyservice.findAll());
 
         //Creates a Div that wraps the grid and the form, gives it a CSS class name, and makes
         //it full size
