@@ -33,6 +33,9 @@ public class MainView extends VerticalLayout {
 
         //call form constructor
         form = new ContactForm(companyservice.findAll());
+        form.addListener(ContactForm.SaveEvent.class, this::saveContact);
+        form.addListener(ContactForm.DeleteEvent.class, this::deleteContact);
+        form.addListener(ContactForm.CloseEvent.class, e -> closeEditor());
 
         //Creates a Div that wraps the grid and the form, gives it a CSS class name, and makes
         //it full size
@@ -48,6 +51,20 @@ public class MainView extends VerticalLayout {
         //① The closeEditor() call at the end of the constructor Sets the form contact to null,
         //clearing out old values. Hides the form. Removes the "editing" CSS class from the
         //view.
+        closeEditor();
+    }
+
+    private void deleteContact(ContactForm.DeleteEvent event) {
+        contactService.delete(event.getContact());
+        updateList();
+        closeEditor();
+
+    }
+
+    //saveContact method
+    private void saveContact(ContactForm.SaveEvent event) {
+        contactService.save(event.getContact());
+        updateList();
         closeEditor();
     }
 

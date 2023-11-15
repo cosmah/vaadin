@@ -43,8 +43,13 @@ public class ContactService {
         return contactRepository.count();
     }
     public void delete(Contact contact) {
+        if (contact == null) {
+            LOGGER.log(Level.SEVERE, "Contact to delete is null.");
+            return;
+        }
         contactRepository.delete(contact);
     }
+
     public void save(Contact contact) {
         if (contact == null) {
             LOGGER.log(Level.SEVERE,
