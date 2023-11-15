@@ -66,7 +66,7 @@ public class ContactForm extends FormLayout {
 //    }
 
     public void setContact(Contact contact){
-        //Save a reference to the contact so we can save the form values back into it later.
+        //Save a reference to the contact, so we can save the form values back into it later.
         this.contact = contact;
         //Calls binder.readBean to bind the values from the contact to the UI fields. readBen
         //copies the values from the Contact to an internal model, that way we don’t

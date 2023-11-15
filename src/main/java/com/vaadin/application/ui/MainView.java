@@ -58,6 +58,22 @@ public class MainView extends VerticalLayout {
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
+
+    }
+
+    private void configureGrid() {
+        grid.addClassName("contact-grid");
+        grid.setSizeFull();
+        grid.removeColumnByKey("company");
+        grid.setColumns("firstName", "lastName", "email", "status");
+        grid.addColumn(contact -> {
+            Company company = contact.getCompany();
+            return company == null ? "-" : company.getName();
+        }).setHeader("Company");
+
+        //column sizing to aouto
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
         //② addValueChangeListener adds a listener to the grid. The Grid component supports
         //multi and single-selection modes. We only want to select a single Contact, so we use
         //the asSingleSelect() method. The getValue() method returns the Contact in the
@@ -65,6 +81,8 @@ public class MainView extends VerticalLayout {
         grid.asSingleSelect().addValueChangeListener(event ->
                 editContact(event.getValue()));
     }
+
+
 
     //③ editContact sets the selected contact in the ContactForm and hides or shows the
     //form, depending on the selection. It also sets the "editing" CSS class name when
@@ -87,19 +105,6 @@ public class MainView extends VerticalLayout {
     private void updateList() {
 
         grid.setItems(contactService.findAll(filterText.getValue()));
-    }
-    private void configureGrid() {
-        grid.addClassName("contact-grid");
-        grid.setSizeFull();
-        grid.removeColumnByKey("company");
-        grid.setColumns("firstName", "lastName", "email", "status");
-        grid.addColumn(contact -> {
-            Company company = contact.getCompany();
-            return company == null ? "-" : company.getName();
-        }).setHeader("Company");
-
-        //column sizing to aouto
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
 
