@@ -4,10 +4,10 @@ import com.vaadin.application.backend.entity.Company;
 import com.vaadin.application.backend.entity.Contact;
 import com.vaadin.application.backend.service.CompanyService;
 import com.vaadin.application.backend.service.ContactService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -28,7 +28,7 @@ public class MainView extends VerticalLayout {
         this.contactService = contactService;
         addClassName("list-view");
         setSizeFull();
-        configureFilter();
+        //getToolBar();
         configureGrid();
 
         //call form constructor
@@ -43,9 +43,8 @@ public class MainView extends VerticalLayout {
         content.addClassName("content");
         content.setSizeFull();
 
-
         // Adds the content layout to the main layout
-        add(filterText, content);
+        add(getToolBar(), content);
         updateList();
 
         //① The closeEditor() call at the end of the constructor Sets the form contact to null,
@@ -69,13 +68,25 @@ public class MainView extends VerticalLayout {
     }
 
     //text field method
-    private void configureFilter() {
+    private HorizontalLayout getToolBar() {
         filterText.setPlaceholder("Filter by name...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
 
+        //add button
+        Button addContactButton = new Button("Add Contact", click -> addContact());
+
+
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
+        toolbar.addClassName("toolbar");
+        return toolbar;
+    }
+
+    private void addContact() {
+        grid.asSingleSelect().clear();
+        editContact(new Contact());
     }
 
     private void configureGrid() {
