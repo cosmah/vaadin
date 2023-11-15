@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 public class Company extends AbstractEntity {
-    public static final String Status = null;
     private String name;
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Contact> employees = new LinkedList<>();

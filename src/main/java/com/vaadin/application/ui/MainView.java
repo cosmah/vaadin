@@ -44,6 +44,11 @@ public class MainView extends VerticalLayout {
         // Adds the content layout to the main layout
         add(filterText, content);
         updateList();
+
+        //① The closeEditor() call at the end of the constructor Sets the form contact to null,
+        //clearing out old values. Hides the form. Removes the "editing" CSS class from the
+        //view.
+        closeEditor();
     }
 
     //text field method
@@ -52,8 +57,35 @@ public class MainView extends VerticalLayout {
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
+
+        //② addValueChangeListener adds a listener to the grid. The Grid component supports
+        //multi and single-selection modes. We only want to select a single Contact, so we use
+        //the asSingleSelect() method. The getValue() method returns the Contact in the
+        //selected row or null if there’s no selection
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editContact(event.getValue()));
     }
+
+    //③ editContact sets the selected contact in the ContactForm and hides or shows the
+    //form, depending on the selection. It also sets the "editing" CSS class name when
+    //editing
+    public void editContact(Contact contact) {
+        if (contact == null) {
+            closeEditor();
+        } else {
+            form.setContact(contact);
+            form.setVisible(true);
+            addClassName("editing");
+        }
+    }
+    private void closeEditor() {
+        form.setContact(null);
+        form.setVisible(false);
+        removeClassName("editing");
+    }
+
     private void updateList() {
+
         grid.setItems(contactService.findAll(filterText.getValue()));
     }
     private void configureGrid() {
