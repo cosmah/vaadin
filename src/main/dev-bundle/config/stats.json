@@ -71,6 +71,7 @@
   "@vaadin/vaadin-usage-statistics": "2.1.2",
   "@vaadin/vertical-layout": "24.2.2",
   "@vaadin/virtual-list": "24.2.2",
+  "apexcharts": "^3.44.0",
   "construct-style-sheets-polyfill": "3.1.0",
   "date-fns": "2.29.3",
   "lit": "2.8.0",
@@ -328,7 +329,7 @@
    "version": "24.2.2"
   }
  },
- "packageJsonHash": "a77f35734d4275ca6ddc6edc9b2284c4e896ad15f50b4dc957647d2bd5de8abe",
+ "packageJsonHash": "b5a10444e6799c3d9987866c92003e86e3d0ab3f7744fc87caae3e2b2e569535",
  "indexHtmlGenerated": [
   "  <script type=\"module\" crossorigin src=\"./VAADIN/build/indexhtml-97d08bc1.js\"></script>"
  ]

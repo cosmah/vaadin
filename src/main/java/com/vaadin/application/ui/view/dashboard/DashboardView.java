@@ -16,6 +16,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Route(value = "dashboard", layout = MainLayout.class)
@@ -51,6 +54,7 @@ public class DashboardView extends VerticalLayout {
         chart.getConfiguration().setSeries(dataSeries);
         return chart;
     }
+
 
 
 }
