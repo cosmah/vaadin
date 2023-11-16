@@ -1,5 +1,6 @@
 package com.vaadin.application.ui;
 
+import com.vaadin.application.ui.view.dashboard.DashboardView;
 import com.vaadin.application.ui.view.list.ListView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -28,9 +29,17 @@ public class MainLayout extends AppLayout {
         header.addClassName("header");
         addToNavbar(header);
     }
+
+
+    //nav link
     private void createDrawer() {
         RouterLink listLink = new RouterLink("List", ListView.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
-        addToDrawer(new VerticalLayout(listLink));
+        addToDrawer(new VerticalLayout(
+                listLink,
+                new RouterLink("Dashboard", DashboardView.class)
+        ));
     }
+
+
 }
